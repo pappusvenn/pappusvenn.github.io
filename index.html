@@ -25,17 +25,18 @@
      
 
     function myFunction(response) {
-    var arr = JSON.parse(response);
-    var i;
-    var out = "<table>";
+     var out = response;
+    //var arr = JSON.parse(response);
+    //var i;
+    //var out = "<table>";
 
-    for(i = 0; i < arr.length; i++) {
-        out += "<tr><td>" +
-        arr.tripOption[i].saleTotal +
-        "</td></tr>";
+    //for(i = 0; i < arr.length; i++) {
+       // out += "<tr><td>" +
+        //arr.tripOption[i].saleTotal +
+        //"</td></tr>";
     }
-    out += "</table>";
-    document.getElementById("id01").innerHTML = "Fuck You";
+    //out += "</table>";
+    document.getElementById("id01").innerHTML = out;
 }  
       
   </script>
