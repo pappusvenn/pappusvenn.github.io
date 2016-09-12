@@ -25,18 +25,31 @@
      
 
     function myFunction(response) {
-     var arr = JSON.parse(response);
-     var i;
-     var out = "<table>";
+     //var arr = JSON.parse(response);
+     //var i;
+     //var out = "<table>";
 
-    for(i = 0; i < 20; i++) {
-       out += "<tr><td>" +
-       arr.tripOption[i].saleTotal +
-       "</td></tr>";
-    }
-    out += "</table>";
-    document.getElementById("id01").innerHTML = out;
-}  
+    //for(i = 0; i < 20; i++) {
+       //out += "<tr><td>" +
+       //arr.tripOption[i].saleTotal +
+       //"</td></tr>";
+    //}
+    //out += "</table>";
+    //document.getElementById("id01").innerHTML = out;
+
+     var arr = ["a", "b", "c"];
+var str = JSON.stringify(arr);
+document.write(str);
+document.write ("<br/>");
+
+var newArr = JSON.parse(str);
+
+while (newArr.length > 0) {
+    document.write(newArr.pop() + "<br/>");
+}
+
+     
+    }  
       
   </script>
   
