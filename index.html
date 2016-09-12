@@ -7,7 +7,7 @@
  
 <body>
  <h1> TrueCost Flight Search</h1>
- <p id="demo"></p>
+ <div id="id01"></div>
  
   <script>
     var xhr = new XMLHttpRequest();
@@ -16,14 +16,25 @@
      xhr.setRequestHeader("Content-Type", "application/json");
      xhr.send('{"request": {"slice": [{"origin": "DFW","destination": "SFO","date": "2016-09-23"}],"passengers": {"adultCount": 1,"infantInLapCount": 0,"infantInSeatCount": 0,"childCount": 0,"seniorCount": 0},"solutions": 20,"refundable": false}}');
      
-     xhr.addEventListener("readystatechange", processRequest, false);
+     xhr.onreadystatechange=function() {
+    if (this.readyState == 4 && this.status == 200) {
+        myFunction(this.responseText);
+    }
+     }
+     function myFunction(response) {
+    var arr = JSON.parse(response);
+    var i;
+    var out = "<table>";
+
+    for(i = 0; i < arr.tripOption.length; i++) {
+        out += "<tr><td>" +
+        arr.tripOption[i].saleTotal +
+        "</td></tr>";
+    }
+    out += "</table>";
+    document.getElementById("id01").innerHTML = out;
+}  
       
-      function processRequest(e){
-       if (xhr.readyState == 4 && xhr.status == 200) {
-         var result = xhr.responseText.italics();
-         document.getElementById("demo").innerHTML = result;
-       }
-      }
   </script>
   
   
