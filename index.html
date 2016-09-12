@@ -26,16 +26,15 @@
 
     function myFunction(response) {
      var arr = JSON.parse(response);
-     var out = arr.tripOption.length;
-    //var i;
-    //var out = "<table>";
+     var i;
+     var out = "<table>";
 
-    //for(i = 0; i < arr.length; i++) {
-       // out += "<tr><td>" +
-        //arr.tripOption[i].saleTotal +
-        //"</td></tr>";
-    //}
-    //out += "</table>";
+    for(i = 0; i < 20; i++) {
+       out += "<tr><td>" +
+       arr.tripOption[i].saleTotal +
+       "</td></tr>";
+    }
+    out += "</table>";
     document.getElementById("id01").innerHTML = out;
 }  
       
