@@ -26,6 +26,7 @@
 
     function myFunction(response) {
      var arr = JSON.parse(response);
+     var apt = arr.trips.tripOption[0].saleTotal;
      //var i;
      //var out = "<table>";
 
@@ -38,8 +39,8 @@
     //document.getElementById("id01").innerHTML = out;
 
 
-var str = JSON.stringify(arr);
-document.write(str);
+//var str = JSON.stringify(arr);
+document.write(apt);
 
 
 
