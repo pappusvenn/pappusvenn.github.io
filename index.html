@@ -6,7 +6,7 @@
 </head>
  
 <body>
- <h1> Well fuck here we go</h1>
+ <h1> TrueCost Flight Search</h1>
  <p id="demo"></p>
  
   <script>
@@ -20,7 +20,6 @@
       
       function processRequest(e){
        if (xhr.readyState == 4 && xhr.status == 200) {
-         alert("It worked");
          var result = xhr.responseText.italics();
          document.getElementById("demo").innerHTML = result;
        }
