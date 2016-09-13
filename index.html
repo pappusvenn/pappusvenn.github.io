@@ -41,18 +41,20 @@
   };
     xobj.send(null);  
     
-var mystr = "holyshit";
+
     
     function loadairports(response) {
        alert("Just checking");
        var listo = JSON.parse(response);
        var i;
-       mystr = "fukcyou";
+       var mystr = "fukcyou";
        //for (i=0; i<listo.airports.length; i++){
         // out += "<tr><td>" + listo.airports[i].code + "</td><td>" + listo.airports[i].lat + "</td><td>" + listo.airports[i].lng + "</td><tr>";
       // }
+      document.getElementById("supercool").innerHTML = mystr;
+     
     }
-    document.getElementById("supercool").innerHTML = mystr;
+    
     
     
     function searchandcompare(){
