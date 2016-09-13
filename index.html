@@ -29,6 +29,8 @@
          searchandcompare();
     });
     
+var aerorportos = {};
+    
 function loadjson() {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
@@ -39,14 +41,12 @@ function loadjson() {
   };
     xobj.send(null);  
 }
-
-var aerorportos = {};
-    
     function loadairports(response) {
        aeroportos = JSON.parse(response);
     }
     
-    
+    var str = JSON.stringify(aeroportos);
+    console.log(str);
     
     function searchandcompare(){
      alert("Holy shit");
