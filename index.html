@@ -29,7 +29,7 @@
          searchandcompare();
     });
     
-var aerorportos = {};
+var aerorportos = {}; //CLEARLY IT IS FUCKING DEFINED!!!!!!!!
     
 function loadjson() {
   var xobj = new XMLHttpRequest();
@@ -42,10 +42,10 @@ function loadjson() {
     xobj.send(null);  
 }
     function loadairports(response) {
-       aeroportos = JSON.parse(response);
+       aeroportos = JSON.parse(response); //It was already defined earlier!!!
     }
     
-    var str = JSON.stringify(aeroportos);
+    var str = JSON.stringify(aeroportos); //But Javascript says this is undefined now. What the FUCKINg FUCK
     console.log(str);
     
     function searchandcompare(){
