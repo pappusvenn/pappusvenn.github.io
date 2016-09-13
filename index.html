@@ -22,11 +22,35 @@
  <p>Destination Address (Street, City, State): <input type="text" id="destadd"></p>
  <p>Enter Date: <input type="text" id="datepicker-1"></p>
  <input type="button" id="compare-flights" value="Search">
+ <div id="supercool"></div>
  
   <script>
     document.getElementById('compare-flights').addEventListener('click',function(){
          searchandcompare();
     });
+    
+
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', 'my_data.json', true); // Replace 'my_data' with the path to your file
+  xobj.onreadystatechange = function () {
+  if (xobj.readyState == 4 && xobj.status == "200") {
+     // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            loadairports(xobj.responseText);
+    }
+  };
+    xobj.send(null);  
+    
+    function loadairports(response) {
+       var airports = JSON.parse(response);
+       var out = "<table>";
+       for (i=0; i<airports.length; i++){
+         out += "<tr><td>" + airports[i].code + "</td><td>" + airports[i].lat + "</td><td>" + airports[i].lng + "</td><tr>";
+        
+       }
+    };
+    document.getElementById("supercool").innerHTML = out;
+    
     
     function searchandcompare(){
      alert("Holy shit");
