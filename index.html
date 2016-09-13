@@ -44,9 +44,10 @@
  var out = "<table>";
     
     function loadairports(response) {
-       var airports = JSON.parse(response);
-       for (i=0; i<airports.length; i++){
-         out += "<tr><td>" + airports[i].code + "</td><td>" + airports[i].lat + "</td><td>" + airports[i].lng + "</td><tr>";
+       out = response;
+       //var airports = JSON.parse(response);
+       //for (i=0; i<airports.length; i++){
+         //out += "<tr><td>" + airports[i].code + "</td><td>" + airports[i].lat + "</td><td>" + airports[i].lng + "</td><tr>";
         
        }
     };
