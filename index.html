@@ -24,22 +24,27 @@
  <input type="button" id="compare-flights" value="Search">
  
   <script>
-    document.getelementbyID('originadd')
-    var xhr = new XMLHttpRequest();
-    var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
+    document.getelementbyID('compare-flights').addeventlistener('click',function(){
+         searchandcompare();
+    });
     
-    xhr.onreadystatechange=function() {
-    if (this.readyState == 4 && this.status == 200) {
-        myFunction(this.responseText);
-    }
-     }
+    function searchandcompare(){
+     alert("Holy shit");
+    //'var xhr = new XMLHttpRequest();
+    //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
-     xhr.open('POST', url, true);
-     xhr.setRequestHeader("Content-Type", "application/json");
-     xhr.send('{"request": {"slice": [{"origin": "DFW","destination": "SFO","date": "2016-09-23"}],"passengers": {"adultCount": 1,"infantInLapCount": 0,"infantInSeatCount": 0,"childCount": 0,"seniorCount": 0},"solutions": 20,"refundable": false}}');
+    //'xhr.onreadystatechange=function() {
+    //'if (this.readyState == 4 && this.status == 200) {
+     //   'myFunction(this.responseText);
+    //''}
+     //''}
+    
+    // 'xhr.open('POST', url, true);
+     //'xhr.setRequestHeader("Content-Type", "application/json");
+     //'xhr.send('{"request": {"slice": [{"origin": "DFW","destination": "SFO","date": "2016-09-23"}],"passengers": {"adultCount": 1,"infantInLapCount": 0,"infantInSeatCount": 0,"childCount": 0,"seniorCount": 0},"solutions": 20,"refundable": false}}');
      
 
-    function myFunction(response) {
+    //'function myFunction(response) {
      //var arr = JSON.parse(response);
      //var apt = arr.trips.tripOption[0].saleTotal;
      //var i;
