@@ -25,29 +25,29 @@
      
 
     function myFunction(response) {
-     var arr = JSON.parse(response);
-     var apt = arr.trips.tripOption[0].saleTotal;
-     var i;
-     var out = "<table>";
+     //var arr = JSON.parse(response);
+     //var apt = arr.trips.tripOption[0].saleTotal;
+     //var i;
+     var out = response;
 
-    for(i = 0; i < arr.trips.tripOption.length; i++) {
-       out += "<tr><td>" +
-       arr.trips.tripOption[i].slice[0].segment[0].flight.carrier +
-       "</td><td>" +
-       arr.trips.tripOption[i].slice[0].segment[0].flight.number +
-       "</td><td>" +
-       arr.trips.tripOption[i].slice[0].segment[0].leg[0].origin +
-       "</td><td>" +       
-       arr.trips.tripOption[i].slice[0].segment[0].leg[0].departureTime +
-       "</td><td>" +
-       arr.trips.tripOption[i].slice[0].segment[0].leg[0].destination +
-       "</td><td>" + 
-       arr.trips.tripOption[i].slice[0].segment[0].leg[0].arrivalTime +
-       "</td><td>" +      
-       arr.trips.tripOption[i].saleTotal +
-       "</td></tr>";
-    }
-    out += "</table>";
+    //for(i = 0; i < arr.trips.tripOption.length; i++) {
+    //   out += "<tr><td>" +
+    //   arr.trips.tripOption[i].slice[0].segment[0].flight.carrier +
+    //   "</td><td>" +
+     //  arr.trips.tripOption[i].slice[0].segment[0].flight.number +
+    //   "</td><td>" +
+    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].origin +
+    //   "</td><td>" +       
+    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].departureTime +
+    //   "</td><td>" +
+    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].destination +
+    //   "</td><td>" + 
+    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].arrivalTime +
+    //  "</td><td>" +      
+    //   arr.trips.tripOption[i].saleTotal +
+    //   "</td></tr>";
+   // }
+    //out += "</table>";
     document.getElementById("id01").innerHTML = out;
 
 
