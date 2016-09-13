@@ -27,20 +27,17 @@
     function myFunction(response) {
      var arr = JSON.parse(response);
      var apt = arr.trips.tripOption[0].saleTotal;
-     //var i;
-     //var out = "<table>";
+     var i;
+     var out = "<table>";
 
-    //for(i = 0; i < 20; i++) {
-       //out += "<tr><td>" +
-       //arr.tripOption[i].saleTotal +
-       //"</td></tr>";
-    //}
-    //out += "</table>";
-    //document.getElementById("id01").innerHTML = out;
+    for(i = 0; i < arr.trips.tripOption.length; i++) {
+       out += "<tr><td>" +
+       arr.trips.tripOption[i].saleTotal +
+       "</td></tr>";
+    }
+    out += "</table>";
+    document.getElementById("id01").innerHTML = out;
 
-
-//var str = JSON.stringify(arr);
-document.write(apt);
 
 
 
