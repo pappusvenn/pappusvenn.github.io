@@ -18,10 +18,13 @@
  
 <body>
  <h1> TrueCost Flight Search</h1>
+ <p>Origin Address (Street, City, State): <input type="text" id="originadd"></p>
+ <p>Destination Address (Street, City, State): <input type="text" id="destadd"></p>
  <p>Enter Date: <input type="text" id="datepicker-1"></p>
- <div id="id01"></div>
+ <input type="button" id="compare-flights" value="Search">
  
   <script>
+    document.getelementbyID('originadd')
     var xhr = new XMLHttpRequest();
     var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
