@@ -7,7 +7,7 @@
   <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2hkwSclaKkxutpMtFGtsJfEXajcoSmls&v=3"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2hkwSclaKkxutpMtFGtsJfEXajcoSmls"></script>
   <!-- Javascript to establish the datepicker -->
   <script>
      $(function() {
@@ -52,6 +52,7 @@ function searchandcompare(){
    if (status == 'OK') {
         originlat = results[0].geometry.location.lat;
         originlng = results[0].geometry.location.lng;
+        console.log(originlat, originlng);
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
