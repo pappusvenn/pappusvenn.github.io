@@ -45,15 +45,14 @@ function loadjson() {
 function searchandcompare(){
    var airports = JSON.parse(loadjson()); //But Javascript says this is undefined now. What the FUCKINg FUCK
    var origin = document.getElementById('originadd').value;
-   var originlat = 0.0;
-   var originlng = 0.0;
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
-        originlat = results[0].geometry.location.lat();
-        originlng = results[0].geometry.location.lng();
+        var originlat = results[0].geometry.location.lat();
+        var originlng = results[0].geometry.location.lng();
         console.log(originlat, originlng);
-        findairports(originlat,originlng,airports);
+        var areaairports = findairports(originlat,originlng,airports);
+        document.getElementById('supercool').innerHTML = areaairports.toString();
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
@@ -62,11 +61,14 @@ function searchandcompare(){
   
   function findairports(num1,num2,list){
      var i;
+     var areaports = [];
      for(i=0; i<list.length; i++) {
         if (distance(num1,num2,list[i].lat,list[i].lng) < 100){
            alert('Found Airport' + list[i].code);
+           areaports.push(list[i].code);
         } 
      }
+     return areaports;
   }
   
   function distance(lat1, lon1, lat2, lon2){
