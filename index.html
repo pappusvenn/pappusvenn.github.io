@@ -54,7 +54,6 @@ function searchandcompare(){
         var originlng = results[0].geometry.location.lng();
         console.log(originlat, originlng);
         areaairports = findairports(originlat,originlng,airports);
-        
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
