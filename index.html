@@ -43,21 +43,23 @@ function loadjson() {
 }
 
 function searchandcompare(){
-   var airports = JSON.parse(loadjson()); //But Javascript says this is undefined now. What the FUCKINg FUCK
+   var airports = JSON.parse(loadjson());
    var origin = document.getElementById('originadd').value;
+   var destination = document.getElementById('destadd').value;
+   var areaairports = [];
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
         var originlat = results[0].geometry.location.lat();
         var originlng = results[0].geometry.location.lng();
         console.log(originlat, originlng);
-        var areaairports = findairports(originlat,originlng,airports);
-        document.getElementById('supercool').innerHTML = areaairports.toString();
+        areaairports = findairports(originlat,originlng,airports);
+        
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
+    document.getElementById('supercool').innerHTML = areaairports.toString();
     });
-    console.log(originlat, originlng);
   
   function findairports(num1,num2,list){
      var i;
