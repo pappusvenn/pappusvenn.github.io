@@ -35,21 +35,23 @@ function loadjson() {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
   xobj.open('GET', 'airports.json', false); 
-  
   xobj.onreadystatechange = function () {
-  if (xobj.readyState == 4 && xobj.status == "200") {loadairports(xobj.responseText);}
+  if (xobj.readyState == 4 && xobj.status == "200") {
+   var aeroportos = JSON.parseloadairports(xobj.responseText);}
   };
-    xobj.send(null);  
+    xobj.send(null);
+    return aeroportos;
 }
-    function loadairports(response) {
-       aeroportos = JSON.parse(response); //It was already defined earlier!!!
-    }
+    //function loadairports(response) {
+      // aeroportos = JSON.parse(response); //It was already defined earlier!!!
+    //}
     
-    var str = JSON.stringify(aeroportos); //But Javascript says this is undefined now. What the FUCKINg FUCK
-    console.log(str);
+
     
     function searchandcompare(){
-     alert("Holy shit");
+    
+    var str = JSON.stringify(loadjson()); //But Javascript says this is undefined now. What the FUCKINg FUCK
+    console.log(str);
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
@@ -66,29 +68,9 @@ function loadjson() {
 
     //'function myFunction(response) {
      //var arr = JSON.parse(response);
-     //var apt = arr.trips.tripOption[0].saleTotal;
      //var i;
      //var out = response;
 
-    //for(i = 0; i < arr.trips.tripOption.length; i++) {
-    //   out += "<tr><td>" +
-    //   arr.trips.tripOption[i].slice[0].segment[0].flight.carrier +
-    //   "</td><td>" +
-     //  arr.trips.tripOption[i].slice[0].segment[0].flight.number +
-    //   "</td><td>" +
-    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].origin +
-    //   "</td><td>" +       
-    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].departureTime +
-    //   "</td><td>" +
-    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].destination +
-    //   "</td><td>" + 
-    //   arr.trips.tripOption[i].slice[0].segment[0].leg[0].arrivalTime +
-    //  "</td><td>" +      
-    //   arr.trips.tripOption[i].saleTotal +
-    //   "</td></tr>";
-   // }
-    //out += "</table>";
-    
      
     }  
       
