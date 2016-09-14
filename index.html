@@ -50,8 +50,8 @@ function searchandcompare(){
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
-        originlat = results[0].geometry.location.lat;
-        originlng = results[0].geometry.location.lng;
+        originlat = results[0].geometry.location.lat();
+        originlng = results[0].geometry.location.lng();
         console.log(originlat, originlng);
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
