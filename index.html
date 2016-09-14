@@ -7,7 +7,7 @@
   <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2hkwSclaKkxutpMtFGtsJfEXajcoSmls&v=3"></script>
   <!-- Javascript to establish the datepicker -->
   <script>
      $(function() {
@@ -29,30 +29,35 @@
          searchandcompare();
     });
     
-var aerorportos = {}; //CLEARLY IT IS FUCKING DEFINED!!!!!!!!
-    
 function loadjson() {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
   xobj.open('GET', 'airports.json', false); 
-  var aeroportos = {};
+  var aeroportos = "What the fuck?";
   xobj.onreadystatechange = function () {
   if (xobj.readyState == 4 && xobj.status == "200") {
-    aeroportos = JSON.parse(xobj.responseText);}
+    aeroportos = xobj.responseText;}
   };
     xobj.send(null);
     return aeroportos;
 }
-    //function loadairports(response) {
-      // aeroportos = JSON.parse(response); //It was already defined earlier!!!
-    //}
-    
 
-    
-    function searchandcompare(){
-    
-    var str = JSON.stringify(loadjson()); //But Javascript says this is undefined now. What the FUCKINg FUCK
-    console.log(str);
+function searchandcompare(){
+   var airports = JSON.parse(loadjson()); //But Javascript says this is undefined now. What the FUCKINg FUCK
+   var origin = document.getElementById('originadd').value;
+   var originlat = 0.0;
+   var originlng = 0.0;
+   var geocoder = new google.maps.Geocoder();
+   geocoder.geocode( { 'address': origin}, function(results, status) {
+   if (status == 'OK') {
+        originlat = results[0].geometry.location.lat;
+        originlng = results[0].geometry.location.lng;
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+    console.log(originlat, originlng);
+  
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
