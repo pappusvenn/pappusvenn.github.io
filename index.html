@@ -35,9 +35,10 @@ function loadjson() {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
   xobj.open('GET', 'airports.json', false); 
+  var aeroportos = {};
   xobj.onreadystatechange = function () {
   if (xobj.readyState == 4 && xobj.status == "200") {
-   var aeroportos = JSON.parseloadairports(xobj.responseText);}
+    aeroportos = JSON.parse(loadairports(xobj.responseText));}
   };
     xobj.send(null);
     return aeroportos;
