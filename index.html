@@ -38,7 +38,7 @@ function loadjson() {
   var aeroportos = {};
   xobj.onreadystatechange = function () {
   if (xobj.readyState == 4 && xobj.status == "200") {
-    aeroportos = JSON.parse(loadairports(xobj.responseText));}
+    aeroportos = JSON.parse(xobj.responseText);}
   };
     xobj.send(null);
     return aeroportos;
