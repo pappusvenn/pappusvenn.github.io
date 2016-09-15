@@ -90,7 +90,6 @@ function searchandcompare(){
      var areaports = [];
      for(i=0; i<list.length; i++) {
         if (distance(num1,num2,list[i].lat,list[i].lng) < 100){
-           alert('Found Airport' + list[i].code);
            areaports.push(list[i]);
         } 
      }
@@ -116,7 +115,24 @@ function searchandcompare(){
   }
     
     function ubercost(startlat,startlng,endlat,endlng){
-     
+      var url = 'https://api.uber.com/v1/estimates/price?server_token=K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F';
+      var stla = '&start_latitude=' + startlat.toString();
+      var stln = '&start_longitude=' + startlng.toString();
+      var enla = '&end_latitude=' + endlat.toString();
+      var enln = '&end_longitude=' + endlng.toString();
+      url = url + stla + stln + enla + enln;
+      console.log(url);
+      
+      var response
+      
+      var xub = new XMLHttpRequest();
+      xub.open('GET', url, false);
+      xub.onreadystatechange = function () {
+          if (xub.readyState == 4 && xub.status == "200") {
+                   response = JSON.parse(xub.responseText);
+          }
+       };
+       return response.prices[4].estimate;
     }
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
