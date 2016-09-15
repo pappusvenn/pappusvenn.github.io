@@ -63,17 +63,19 @@ function searchandcompare(){
              var destinationlng = results2[0].geometry.location.lng();
              destinationairports = findairports(destinationlat,destinationlng,airports);
              console.log(destinationlat, destinationlng);
+             document.getElementById('supercool').innerHTML = originairports.toString(); + "<p></p>" + destination airports.toString();
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
+        //end of the second (destination) geocoder 
         });     
   } else {
        alert('Origin search was not successful for the following reason: ' + status);
     }
-    document.getElementById('supercool').innerHTML = areaairports.toString();
-  
-   //end of function searchandcompare 
+   //end of the first (origin) geocoder
    });
+
+//end of function searchandcompare  
 }
   function findairports(num1,num2,list){
      var i;
