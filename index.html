@@ -19,8 +19,8 @@
  
 <body>
  <h1> TrueCost Flight Search</h1>
- <p>Origin Address (Street, City, State): <input type="text" id="originadd"></p>
- <p>Destination Address (Street, City, State): <input type="text" id="destadd"></p>
+ <p>Origin Address (Street, City, State): <input type="text" id="originadd"><span id=ogapts></span></p>
+ <p>Destination Address (Street, City, State): <input type="text" id="destadd"><span id=endapts></span></p>
  <p>Enter Date: <input type="text" id="datepicker-1"></p>
  <input type="button" id="compare-flights" value="Search">
  <div id="supercool"></div>
@@ -64,7 +64,8 @@ function searchandcompare(){
              var destinationlng = results2[0].geometry.location.lng();
              destinationairports = findairports(destinationlat,destinationlng,airports);
              console.log(destinationlat, destinationlng);
-             document.getElementById('supercool').innerHTML = destinationairports.toString();
+             document.getElementById('ogapts').innerHTML = "OK, we'll check these airports: " & originairports.toString();
+             document.getElementById('ogapts').innerHTML = "OK, we'll check these airports: " & destinationairports.toString();
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
