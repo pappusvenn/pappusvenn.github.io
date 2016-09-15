@@ -115,12 +115,13 @@ function searchandcompare(){
   }
     
     function ubercost(startlat,startlng,endlat,endlng){
-     */ var url = 'https://api.uber.com/v1/estimates/price?server_token=K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F';
+     var url = 'https://api.uber.com/v1/estimates/price?server_token=K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F';
       var stla = '&start_latitude=' + startlat.toString();
       var stln = '&start_longitude=' + startlng.toString();
       var enla = '&end_latitude=' + endlat.toString();
       var enln = '&end_longitude=' + endlng.toString();
       url = url + stla + stln + enla + enln;
+     */ var url = 'https://api.uber.com/v1/estimates/price?server_token=K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F&start_latitude=40.7713024&start_longitude=-73.9632393&end_latitude=40.6413111&end_longitude=-73.7781390999999';
       console.log(url);
       
       var response
