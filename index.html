@@ -63,7 +63,7 @@ function searchandcompare(){
              var destinationlng = results2[0].geometry.location.lng();
              destinationairports = findairports(destinationlat,destinationlng,airports);
              console.log(destinationlat, destinationlng);
-             document.getElementById('supercool').innerHTML = originairports.toString(); + "<p></p>" + destination airports.toString();
+             document.getElementById('supercool').innerHTML = originairports.toString(); + "<p></p>" + destinationairports.toString();
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
