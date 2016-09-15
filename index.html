@@ -43,22 +43,36 @@ function loadjson() {
 }
 
 function searchandcompare(){
-   var airports = JSON.parse(loadjson());
+   var airports = JSON.parse(loadjson());//works because we made loadjson a synchronous request. so this must happen first.
    var origin = document.getElementById('originadd').value;
    var destination = document.getElementById('destadd').value;
-   var areaairports = [];
+   var originairports = [];
+   var destinationairports = [];
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
         var originlat = results[0].geometry.location.lat();
         var originlng = results[0].geometry.location.lng();
         console.log(originlat, originlng);
-        areaairports = findairports(originlat,originlng,airports);
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
+        originairports = findairports(originlat,originlng,airports);
+        //OK now that we have the origin airports, we need to do the same thing for the destination airports.  
+        //Need to nest b/c it's asynchronous
+        geocoder.geocode( { 'address': destination}, function(results2, status2) {
+        if (status2 == 'OK') {
+             var destinationlat = results2[0].geometry.location.lat();
+             var destinationlng = results2[0].geometry.location.lng();
+             destinationairports = findairports(destinationlat,destinationlng,airports);
+             console.log(destinationlat, destinationlng);
+        } else {
+                   alert('Destination search was not successful for the following reason: ' + status2);
+               }
+  } else {
+       alert('Origin search was not successful for the following reason: ' + status);
+    }
     document.getElementById('supercool').innerHTML = areaairports.toString();
-    });
+  
+   //end of function searchandcompare 
+   });
   
   function findairports(num1,num2,list){
      var i;
@@ -87,7 +101,6 @@ function searchandcompare(){
 
     var d = R * c;
     var dist = d/1609.34;
-    console.log(dist);
     return dist;
   }
     //'var xhr = new XMLHttpRequest();
