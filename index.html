@@ -47,8 +47,8 @@ function searchandcompare(){
    var airports = JSON.parse(loadjson());//works because we made loadjson a synchronous request. so this must happen first.
    var origin = document.getElementById('originadd').value;
    var destination = document.getElementById('destadd').value;
-   var originairports = {};
-   var destinationairports = {};
+   var originairports = [];
+   var destinationairports = [];
    var originubers = [];
    var destinationubers = [];
    var okwecheck = "  Ok, we'll check these airports: ";
