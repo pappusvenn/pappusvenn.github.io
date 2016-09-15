@@ -67,8 +67,8 @@ function searchandcompare(){
              var destinationlng = results2[0].geometry.location.lng();
              destinationairports = findairports(destinationlat,destinationlng,airports);
              console.log(destinationlat, destinationlng);
-             document.getElementById('ogapts').innerHTML = okwecheck + originairports[0].toString();
-             document.getElementById('endapts').innerHTML = okwecheck + destinationairports[0].toString();
+             document.getElementById('ogapts').innerHTML = okwecheck + originairports[0].code;
+             document.getElementById('endapts').innerHTML = okwecheck + destinationairports[0].code;
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
