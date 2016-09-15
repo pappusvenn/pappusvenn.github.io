@@ -26,7 +26,7 @@
  <div id="supercool"></div>
  
   <script>
-    document.getElementById('compare-flights').addEventListener('click',function(){
+/*    document.getElementById('compare-flights').addEventListener('click',function(){
          searchandcompare();
     });
     
@@ -115,7 +115,7 @@ function searchandcompare(){
   }
     
     function ubercost(startlat,startlng,endlat,endlng){
-      var url = 'https://api.uber.com/v1/estimates/price?server_token=K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F';
+     */ var url = 'https://api.uber.com/v1/estimates/price?server_token=K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F';
       var stla = '&start_latitude=' + startlat.toString();
       var stln = '&start_longitude=' + startlng.toString();
       var enla = '&end_latitude=' + endlat.toString();
@@ -135,8 +135,8 @@ function searchandcompare(){
                    alert("It DIDN't Work");
                }
        };
-       return response.prices[4].estimate;
-    }
+       
+   // }
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
