@@ -49,6 +49,7 @@ function searchandcompare(){
    var destination = document.getElementById('destadd').value;
    var originairports = [];
    var destinationairports = [];
+   var okwecheck = "Ok, we'll check these airports: ";
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
@@ -64,8 +65,8 @@ function searchandcompare(){
              var destinationlng = results2[0].geometry.location.lng();
              destinationairports = findairports(destinationlat,destinationlng,airports);
              console.log(destinationlat, destinationlng);
-             document.getElementById('ogapts').innerHTML = originairports.toString();
-             document.getElementById('endapts').innerHTML = destinationairports.toString();
+             document.getElementById('ogapts').innerHTML = okwecheck + originairports.toString();
+             document.getElementById('endapts').innerHTML = okwecheck + destinationairports.toString();
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
