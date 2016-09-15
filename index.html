@@ -84,7 +84,7 @@ function searchandcompare(){
 }
   function findairports(num1,num2,list){
      var i;
-     var areaports = {};
+     var areaports = [];
      for(i=0; i<list.length; i++) {
         if (distance(num1,num2,list[i].lat,list[i].lng) < 100){
            alert('Found Airport' + list[i].code);
