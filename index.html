@@ -47,9 +47,11 @@ function searchandcompare(){
    var airports = JSON.parse(loadjson());//works because we made loadjson a synchronous request. so this must happen first.
    var origin = document.getElementById('originadd').value;
    var destination = document.getElementById('destadd').value;
-   var originairports = [];
-   var destinationairports = [];
-   var okwecheck = "Ok, we'll check these airports: ";
+   var originairports = {};
+   var destinationairports = {};
+   var originubers = [];
+   var destinationubers = [];
+   var okwecheck = "  Ok, we'll check these airports: ";
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
@@ -65,8 +67,8 @@ function searchandcompare(){
              var destinationlng = results2[0].geometry.location.lng();
              destinationairports = findairports(destinationlat,destinationlng,airports);
              console.log(destinationlat, destinationlng);
-             document.getElementById('ogapts').innerHTML = okwecheck + originairports.toString();
-             document.getElementById('endapts').innerHTML = okwecheck + destinationairports.toString();
+             document.getElementById('ogapts').innerHTML = okwecheck + originairports[0].toString();
+             document.getElementById('endapts').innerHTML = okwecheck + destinationairports[0].toString();
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
@@ -82,11 +84,11 @@ function searchandcompare(){
 }
   function findairports(num1,num2,list){
      var i;
-     var areaports = [];
+     var areaports = {};
      for(i=0; i<list.length; i++) {
         if (distance(num1,num2,list[i].lat,list[i].lng) < 100){
            alert('Found Airport' + list[i].code);
-           areaports.push(list[i].code);
+           areaports.push(list[i]);
         } 
      }
      return areaports;
@@ -109,6 +111,8 @@ function searchandcompare(){
     var dist = d/1609.34;
     return dist;
   }
+    
+    function ubercost(num1,num2,)
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
