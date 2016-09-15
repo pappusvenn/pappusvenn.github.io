@@ -131,11 +131,13 @@ function searchandcompare(){
       xub.onreadystatechange = function () {
           if (xub.readyState == 4 && xub.status == "200") {
                    alert("IT worked");
-                   response = JSON.parse(xub.responseText);
+                   response = xub.responseText;
+                   console.log(response);
           } else {
                    alert("It DIDN't Work");
                }
-       };
+       }
+       xub.send()
        
    // }
     //'var xhr = new XMLHttpRequest();
