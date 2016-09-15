@@ -65,7 +65,7 @@ function searchandcompare(){
              destinationairports = findairports(destinationlat,destinationlng,airports);
              console.log(destinationlat, destinationlng);
              document.getElementById('ogapts').innerHTML = "OK, we'll check these airports: " & originairports.toString();
-             document.getElementById('ogapts').innerHTML = "OK, we'll check these airports: " & destinationairports.toString();
+             document.getElementById('endapts').innerHTML = "OK, we'll check these airports: " & destinationairports.toString();
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
