@@ -47,6 +47,7 @@ function searchandcompare(){
    var airports = JSON.parse(loadjson());//works because we made loadjson a synchronous request. so this must happen first.
    var origin = document.getElementById('originadd').value;
    var destination = document.getElementById('destadd').value;
+   var date = document.getElementById('datepicker-1').value;
    var originairports = [];
    var destinationairports = [];
    var originubers = [];
@@ -64,7 +65,8 @@ function searchandcompare(){
         for (j=0; j<originairports.length; j++) {
            oaptstring += originairports[j].code + ", ";
            originubers[j] = ubercost(originlat,originlng,originairports[j].lat,originairports[j].lng);
-           console.log(originubers[j]);
+           originairports[j].uberest = originubers[j]
+           console.log(originairports[j].uberest);
         }
         document.getElementById('ogapts').innerHTML = okwecheck + oaptstring;
         //OK now that we have the origin airports, we need to do the same thing for the destination airports.  
@@ -78,9 +80,16 @@ function searchandcompare(){
              for (x=0; x<destinationairports.length; x++) {
                 destaptstring += destinationairports[x].code + ", ";
                 destinationubers[x] = ubercost(destinationlat,destinationlng,destinationairports[x].lat,destinationairports[x].lng);
-                console.log(destinationubers[x]);
+                destinationairports[x].uberest = destinationubers[x];
+                console.log(destinationairports[x].uberest);
              }
-             document.getElementById('endapts').innerHTML = okwecheck + destaptstring;
+             document.getElementById('endapts').innerHTML = okwecheck + destaptstring;   
+                //Now we do the flight searches
+                for (var y = 0; y < originairports.length; y++){
+                   for (var z = 0; z < destinationairports.length; z++){
+                       console.log(flightsearch(originairports[y].code, destinationairports[z].code, date));
+                   }
+                }
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
@@ -153,6 +162,21 @@ function searchandcompare(){
        xub.send();
        return(uberXavg);
      }
+     
+    function flightsearch(ognapt,dstapt,flightday){
+     var request = {};
+     request.slice.origin = ognapt;
+     request.slice.destination = dstapt;
+     request.slice.date = flightday;
+     request.passengers.adultCount = 1;
+     request.passengers.infantInLapCount = 0;
+     request.passengers.infantInSeatCount = 0;
+     request.passengers.childCount = 0;
+     request.passengers.seniorCount = 0;
+     request.solutions = 10;
+     request.refundable = false;
+     return JSON.stringify(request);
+    }
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
