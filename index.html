@@ -187,6 +187,7 @@ function searchandcompare(){
     var xhr = new XMLHttpRequest();
     var flighturl = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     var routesum = {};
+    routesum.name = "JFK-SFO";
     routesum.options = [];
     xhr.onreadystatechange=function() {
         if (this.readyState == 4 && this.status == 200) {
