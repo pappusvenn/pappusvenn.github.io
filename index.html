@@ -88,6 +88,7 @@ function searchandcompare(){
                        flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
                    }
                 }
+                console.log(JSON.stringify(flightoptions));
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
@@ -98,7 +99,6 @@ function searchandcompare(){
     }
    //end of the first (origin) geocoder
    });
-console.log(JSON.stringify(flightoptions));
 //end of function searchandcompare  
 }
   function findairports(num1,num2,list){
@@ -208,7 +208,6 @@ console.log(JSON.stringify(flightoptions));
     xhr.open('POST', flighturl, false);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(mystr);
-    console.log(JSON.stringify(routesum));
     return routesum; 
   }
       
