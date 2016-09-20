@@ -137,10 +137,8 @@ function searchandcompare(){
                    console.log(response.prices[0].display_name);
                    var k;
                    for (k == 0; k < response.prices.length; k++){
-                     if (response.prices[k].display_name == "uberX") {
-                          alert("We found uber X");
-                          uberXavg = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2;
-                          console.log(uberXavg);
+                     console.log(response.prices[k].display_name);
+                     console.log(response.prices[k].low_estimate);
                       } 
                    }
           } else {
