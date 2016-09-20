@@ -132,8 +132,9 @@ function searchandcompare(){
       xub.onreadystatechange = function () {
           if (xub.readyState == 4 && xub.status == "200") {
                    alert("It worked");
-                   response = xub.responseText;
+                   response = JSON.parse(xub.responseText);
                    console.log("Fuck You");
+                   console.log(response.prices[0].display_name);
                    //var k;
                    //for (k == 0; k < response.prices.length; k++){
                      // if (response.prices[k].display_name == "uberX") {
@@ -148,7 +149,6 @@ function searchandcompare(){
        }
        xub.setRequestHeader("Authorization", "Token K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F");
        xub.send();
-       console.log(response);
      //}
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
