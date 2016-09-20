@@ -124,7 +124,7 @@ function searchandcompare(){
       console.log(url);
       
      */ var url = "https://api.uber.com/v1/estimates/price?start_latitude=40.7713024&start_longitude=-73.9632393&end_latitude=40.6413111&end_longitude=-73.7781390999999";
-      var response = {};
+      var response;
       var uberXavg = 0.0;
       
       var xub = new XMLHttpRequest();
@@ -132,13 +132,14 @@ function searchandcompare(){
       xub.onreadystatechange = function () {
           if (xub.readyState == 4 && xub.status == "200") {
                    alert("It worked");
-                   response = JSON.parse(xub.responseText);
-                   var k;
-                   for (k == 0; k < response.prices.length; k++){
-                      if (response.prices[k].display_name == "uberX") {
-                          alert("We found uber X");
-                          uberXavg = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2;
-                          console.log(uberXavg);
+                   response = xub.responseText;
+                   console.log(response);
+                   //var k;
+                   //for (k == 0; k < response.prices.length; k++){
+                     // if (response.prices[k].display_name == "uberX") {
+                       //   alert("We found uber X");
+                         // uberXavg = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2;
+                          //console.log(uberXavg);
                       } 
                    }
           } else {
@@ -147,6 +148,7 @@ function searchandcompare(){
        }
        xub.setRequestHeader("Authorization", "Token K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F");
        xub.send();
+       console.log(response);
      //}
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
