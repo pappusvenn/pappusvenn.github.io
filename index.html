@@ -162,7 +162,8 @@ function searchandcompare(){
     function flightsearch(ognapt,dstapt,flightday){
      var myjson = {}; 
      myjson.request = {};
-     myjson.request.slice = {};
+     myjson.request.slice = [];
+     myjson.request.slice[0] = {};
      myjson.request.passengers = {};
      myjson.request.slice.origin = ognapt;
      myjson.request.slice.destination = dstapt;
