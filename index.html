@@ -26,7 +26,7 @@
  <div id="supercool"></div>
  
   <script>
-/*    document.getElementById('compare-flights').addEventListener('click',function(){
+    document.getElementById('compare-flights').addEventListener('click',function(){
          searchandcompare();
     });
     
@@ -50,7 +50,7 @@ function searchandcompare(){
    var date = document.getElementById('datepicker-1').value;
    var originairports = [];
    var destinationairports = [];
-   var okwecheck = "  Ok, we'll check these airports: ";
+   var okwecheck = "  Checking these airports: ";
    var oaptstring = "";
    var destaptstring = "";
    var flightoptions = {};
@@ -85,7 +85,7 @@ function searchandcompare(){
                 //Now we do the flight searches
                 for (var y = 0; y < originairports.length; y++){
                    for (var z = 0; z < destinationairports.length; z++){
-                       flightsearch(originairports[y].code, destinationairports[z].code, date);
+                       flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
                    }
                 }
         } else {
@@ -98,7 +98,7 @@ function searchandcompare(){
     }
    //end of the first (origin) geocoder
    });
-
+console.log(JSON.stringify(flightoptions));
 //end of function searchandcompare  
 }
   function findairports(num1,num2,list){
@@ -179,15 +179,12 @@ function searchandcompare(){
      myjson.request.solutions = 10;
      myjson.request.refundable = false;
      mystr = JSON.stringify(myjson);
-     console.log(mystr); */
+     console.log(mystr); 
     
-    var flightoptions = {};
-    flightoptions.routes = [];
-    mystr = '{"request":{"slice":[{"origin":"JFK","destination":"SFO","date":"2016-09-23"}],"passengers":{"adultCount":1,"infantInLapCount":0,"infantInSeatCount":0,"childCount":0,"seniorCount":0},"solutions":10,"refundable":false}}';
     var xhr = new XMLHttpRequest();
     var flighturl = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     var routesum = {};
-    routesum.desc = "JFK-SFO";
+    routesum.desc = ognapt + "-" + dstapt;
     routesum.opt = [];
     xhr.onreadystatechange=function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -207,15 +204,13 @@ function searchandcompare(){
                 var lastleg = jsonobj.trips.tripOption[n].slice[0].segment[(numseg-1)].leg.length - 1;
                 routesum.opt[n].arrive = jsonobj.trips.tripOption[n].slice[0].segment[(numseg-1)].leg[lastleg].arrivalTime;
             }
-        flightoptions.routes.push(routesum);
-        console.log(JSON.stringify(flightoptions));  
         }
     }
     xhr.open('POST', flighturl, false);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(mystr);
-     
-  //}
+    return routesum; 
+  }
       
 </script>
   
