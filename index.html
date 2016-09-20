@@ -184,12 +184,12 @@ function searchandcompare(){
     mystr = '{"request":{"slice":[{"origin":"JFK","destination":"SFO","date":"2016-09-23"}],"passengers":{"adultCount":1,"infantInLapCount":0,"infantInSeatCount":0,"childCount":0,"seniorCount":0},"solutions":10,"refundable":false}}';
     var xhr = new XMLHttpRequest();
     var flighturl = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
-    
+    var routesum = [];
     xhr.onreadystatechange=function() {
         if (this.readyState == 4 && this.status == 200) {
-            var routesum = [];
             var jsonobj = JSON.parse(this.responseText);
             for (var n=0; n<jsonobj.trips.tripOption.length; n++){
+                routesum[n] = {};
                 var res = jsonobj.trips.tripOption[n].saleTotal.split("USD");
                 routesum[n].price = Number(res[1]);
                 routesum[n].duration = jsonobj.trips.tripOption[n].slice[0].duration;
