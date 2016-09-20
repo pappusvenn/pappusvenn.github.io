@@ -73,7 +73,14 @@ function searchandcompare(){
         if (status2 == 'OK') {
              var destinationlat = results2[0].geometry.location.lat();
              var destinationlng = results2[0].geometry.location.lng();
+             var x;
              destinationairports = findairports(destinationlat,destinationlng,airports);
+             for (x=0; x<destinationairports.length; x++) {
+                destaptstring += destinationairports[x].code + ", ";
+                destinationubers[x] = ubercost(destinationlat,destinationlng,destinationairports[x].lat,destinationairports[x].lng);
+                console.log(destinationubers[x]);
+             }
+             document.getElementById('endapts').innerHTML = okwecheck + destaptstring;
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
