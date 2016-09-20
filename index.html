@@ -193,7 +193,7 @@ function searchandcompare(){
         if (this.readyState == 4 && this.status == 200) {
             var jsonobj = JSON.parse(this.responseText);
             for (var n=0; n<jsonobj.trips.tripOption.length; n++){
-                routesum.options[n] = {};
+                routesum.opt[n] = {};
                 var res = jsonobj.trips.tripOption[n].saleTotal.split("USD");
                 routesum.opt[n].price = Number(res[1]);
                 routesum.opt[n].duration = jsonobj.trips.tripOption[n].slice[0].duration;
