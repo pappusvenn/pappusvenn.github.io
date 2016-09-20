@@ -85,7 +85,7 @@ function searchandcompare(){
                 //Now we do the flight searches
                 for (var y = 0; y < originairports.length; y++){
                    for (var z = 0; z < destinationairports.length; z++){
-                       flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
+                       flightsearch(originairports[y].code, destinationairports[z].code, date);
                    }
                 }
         } else {
@@ -181,7 +181,7 @@ function searchandcompare(){
      mystr = JSON.stringify(myjson);
      console.log(mystr);
     
-    var xhr = new XMLHttpRequest();
+    /*var xhr = new XMLHttpRequest();
     var flighturl = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     var routesum = [];
     xhr.onreadystatechange=function() {
@@ -206,7 +206,7 @@ function searchandcompare(){
     xhr.open('POST', flighturl, false);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(mystr);
-    return routesum;
+    return routesum; */
   }
       
 </script>
