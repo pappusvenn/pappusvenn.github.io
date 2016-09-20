@@ -53,6 +53,8 @@ function searchandcompare(){
    var okwecheck = "  Ok, we'll check these airports: ";
    var oaptstring = "";
    var destaptstring = "";
+   var flightoptions = {};
+   flightoptions.routes = [];
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
@@ -83,7 +85,7 @@ function searchandcompare(){
                 //Now we do the flight searches
                 for (var y = 0; y < originairports.length; y++){
                    for (var z = 0; z < destinationairports.length; z++){
-                       console.log(flightsearch(originairports[y].code, destinationairports[z].code, date));
+                       flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
                    }
                 }
         } else {
@@ -160,7 +162,8 @@ function searchandcompare(){
      }
      
     function flightsearch(ognapt,dstapt,flightday){
-     var myjson = {}; 
+     var myjson = {};
+     var mystr = "";
      myjson.request = {};
      myjson.request.slice = [];
      myjson.request.slice[0] = {};
@@ -175,31 +178,27 @@ function searchandcompare(){
      myjson.request.passengers.seniorCount = 0;
      myjson.request.solutions = 10;
      myjson.request.refundable = false;
-     return JSON.stringify(myjson);
+     mystr = JSON.stringify(myjson);
+     console.log(mystr);
+    
+    var xhr = new XMLHttpRequest();
+    var flighturl = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
+    var jsonobj = {};
+    xhr.onreadystatechange=function() {
+        if (this.readyState == 4 && this.status == 200) {
+            jsonobj = JSON.parse(this.responseText);
+            //------------------YOU ARE HERE
+            //populate the routesum with all the details of each flight
+            //then the routesum will be pushed into the routes[] array above.
+        }
     }
-    //'var xhr = new XMLHttpRequest();
-    //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
-    //'xhr.onreadystatechange=function() {
-    //'if (this.readyState == 4 && this.status == 200) {
-     //   'myFunction(this.responseText);
-    //''}
-     //''}
-    
-    // 'xhr.open('POST', url, true);
-     //'xhr.setRequestHeader("Content-Type", "application/json");
-     //'xhr.send('{"request": {"slice": [{"origin": "DFW","destination": "SFO","date": "2016-09-23"}],"passengers": {"adultCount": 1,"infantInLapCount": 0,"infantInSeatCount": 0,"childCount": 0,"seniorCount": 0},"solutions": 20,"refundable": false}}');
-     
-
-    //'function myFunction(response) {
-     //var arr = JSON.parse(response);
-     //var i;
-     //var out = response;
-
-     
+    xhr.open('POST', flighturl, false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(mystr);
+  }
       
-      
-  </script>
+</script>
   
   
 </body>
