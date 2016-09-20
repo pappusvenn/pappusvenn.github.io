@@ -52,6 +52,8 @@ function searchandcompare(){
    var originubers = [];
    var destinationubers = [];
    var okwecheck = "  Ok, we'll check these airports: ";
+   var oaptstring = "";
+   var destaptstring = "";
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
@@ -60,9 +62,11 @@ function searchandcompare(){
         var j;
         originairports = findairports(originlat,originlng,airports);
         for (j=0; j<originairports.length; j++) {
+           oaptstring += originairports[j].code + ", ";
            originubers[j] = ubercost(originlat,originlng,originairports[j].lat,originairports[j].lng);
            console.log(originubers[j]);
         }
+        document.getElementById('ogapts').innerHTML = okwecheck + oaptstring;
         //OK now that we have the origin airports, we need to do the same thing for the destination airports.  
         //Need to nest b/c it's asynchronous
         geocoder.geocode( { 'address': destination}, function(results2, status2) {
@@ -70,8 +74,6 @@ function searchandcompare(){
              var destinationlat = results2[0].geometry.location.lat();
              var destinationlng = results2[0].geometry.location.lng();
              destinationairports = findairports(destinationlat,destinationlng,airports);
-             document.getElementById('ogapts').innerHTML = okwecheck + originairports[0].code;
-             document.getElementById('endapts').innerHTML = okwecheck + destinationairports[0].code;
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
@@ -121,7 +123,6 @@ function searchandcompare(){
       var enla = '&end_latitude=' + endlat.toString();
       var enln = '&end_longitude=' + endlng.toString();
       url = url + stla + stln + enla + enln;
-      console.log(url);
       var response;
       var uberXavg = 0.0;
       
@@ -129,13 +130,11 @@ function searchandcompare(){
       xub.open('GET', url, false);
       xub.onreadystatechange = function () {
           if (xub.readyState == 4 && xub.status == "200") {
-                   alert("It worked");
                    response = JSON.parse(xub.responseText);
                    var k;
                    for (k = 0; k < response.prices.length; k++){
                      if (response.prices[k].display_name == "uberX") {
                         uberXavg = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2
-                        console.log(uberXavg);
                      }
                   } 
                    
