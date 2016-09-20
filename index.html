@@ -55,6 +55,7 @@ function searchandcompare(){
    var destaptstring = "";
    var flightoptions = {};
    flightoptions.routes = [];
+   var currentsize;
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
@@ -86,9 +87,12 @@ function searchandcompare(){
                 for (var y = 0; y < originairports.length; y++){
                    for (var z = 0; z < destinationairports.length; z++){
                        flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
+                       currentsize = flightoptions.routes.length;
+                       flightoptions.routes[(currentsize-1)].deptuber = originairports[y].uberest;
+                       flightoptions.routes[(currentsize-1)].arrvuber = destinationairports[z].uberest; 
                    }
                 }
-                console.log(JSON.stringify(flightoptions));
+                for (var u=0; u<)
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
