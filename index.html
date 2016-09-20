@@ -3,7 +3,7 @@
  
 <head>
   <meta charset="utf-8">
-  <title>Small Data Dave's Flight Search</title>
+  <title>Dave's Superior Flight Search</title>
   <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="main.css"/>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -18,7 +18,7 @@
 </head>
  
 <body>
- <h1> TrueCost Flight Search</h1>
+ <h1>Dave's Superior Flight Search</h1>
  <p>Origin Address (Street, City, State): <input type="text" id="originadd"><span id=ogapts></span></p>
  <p>Destination Address (Street, City, State): <input type="text" id="destadd"><span id=endapts></span></p>
  <p>Enter Date: <input type="text" id="datepicker-1"></p>
@@ -121,26 +121,31 @@ function searchandcompare(){
       var enla = '&end_latitude=' + endlat.toString();
       var enln = '&end_longitude=' + endlng.toString();
       url = url + stla + stln + enla + enln;
-     */ var url = 'https://api.uber.com/v1/estimates/price?start_latitude=40.7713024&start_longitude=-73.9632393&end_latitude=40.6413111&end_longitude=-73.7781390999999';
       console.log(url);
       
-      var response
+     */ var url = "https://api.uber.com/v1/estimates/price?start_latitude=40.7713024&start_longitude=-73.9632393&end_latitude=40.6413111&end_longitude=-73.7781390999999";
+      var response = {};
+      var uberXavg;
       
       var xub = new XMLHttpRequest();
       xub.open('GET', url, false);
       xub.onreadystatechange = function () {
           if (xub.readyState == 4 && xub.status == "200") {
-                   alert("IT worked");
-                   response = xub.responseText;
-                   console.log(response);
+                   response = JSON.parse(xub.responseText);
+                   var k;
+                   for (k == 0; k < response.prices.length; k++){
+                      if (response.prices[k].display_name == "uberX") {
+                          uberXavg = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2;
+                      } 
+                   }
           } else {
-                   alert("It DIDN't Work");
+                   alert(Uber Price Search Failed);
                }
        }
        xub.setRequestHeader("Authorization", "Token K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F");
        xub.send();
-       
-   // }
+       console.log(uberXavg);
+     //}
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
