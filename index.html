@@ -186,24 +186,25 @@ function searchandcompare(){
     mystr = '{"request":{"slice":[{"origin":"JFK","destination":"SFO","date":"2016-09-23"}],"passengers":{"adultCount":1,"infantInLapCount":0,"infantInSeatCount":0,"childCount":0,"seniorCount":0},"solutions":10,"refundable":false}}';
     var xhr = new XMLHttpRequest();
     var flighturl = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
-    var routesum = [];
+    var routesum = {};
+    routesum.options = [];
     xhr.onreadystatechange=function() {
         if (this.readyState == 4 && this.status == 200) {
             var jsonobj = JSON.parse(this.responseText);
             for (var n=0; n<jsonobj.trips.tripOption.length; n++){
-                routesum[n] = {};
+                routesum.options[n] = {};
                 var res = jsonobj.trips.tripOption[n].saleTotal.split("USD");
-                routesum[n].price = Number(res[1]);
-                routesum[n].duration = jsonobj.trips.tripOption[n].slice[0].duration;
-                routesum[n].layovers = jsonobj.trips.tripOption[n].slice[0].segment.length - 1;
-                routesum[n].flights = [];
+                routesum.options[n].price = Number(res[1]);
+                routesum.options[n].duration = jsonobj.trips.tripOption[n].slice[0].duration;
+                routesum.options[n].layovers = jsonobj.trips.tripOption[n].slice[0].segment.length - 1;
+                routesum.options[n].flights = [];
                 var numseg = jsonobj.trips.tripOption[n].slice[0].segment.length;
                 for (var p=0; p<numseg; p++){
-                   routesum[n].flights[p] = jsonobj.trips.tripOption[n].slice[0].segment[p].flight.carrier + " " + jsonobj.trips.tripOption[n].slice[0].segment[p].flight.number;
+                   routesum.options[n].flights[p] = jsonobj.trips.tripOption[n].slice[0].segment[p].flight.carrier + " " + jsonobj.trips.tripOption[n].slice[0].segment[p].flight.number;
                 }
-                routesum[n].depart = jsonobj.trips.tripOption[n].slice[0].segment[0].leg[0].departureTime;
+                routesum.options[n].depart = jsonobj.trips.tripOption[n].slice[0].segment[0].leg[0].departureTime;
                 var lastleg = jsonobj.trips.tripOption[n].slice[0].segment[(numseg-1)].leg.length - 1;
-                routesum[n].arrive = jsonobj.trips.tripOption[n].slice[0].segment[(numseg-1)].leg[lastleg].arrivalTime;
+                routesum.options[n].arrive = jsonobj.trips.tripOption[n].slice[0].segment[(numseg-1)].leg[lastleg].arrivalTime;
             }
         flightoptions.routes.push(routesum);
         console.log(JSON.stringify(flightoptions));  
