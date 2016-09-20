@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
- 
+
 <head>
   <meta charset="utf-8">
   <title>Dave's Superior Flight Search</title>
@@ -12,7 +12,7 @@
   <!-- Javascript to establish the datepicker -->
   <script>
      $(function() {
-        $( "#datepicker-1" ).datepicker();
+        $( "#datepicker-1" ).datepicker({dateFormat: "yy-mm-dd"});
      });
   </script>
 </head>
@@ -160,20 +160,21 @@ function searchandcompare(){
      }
      
     function flightsearch(ognapt,dstapt,flightday){
-     var request = {};
-     request.slice = {};
-     request.passengers = {};
-     request.slice.origin = ognapt;
-     request.slice.destination = dstapt;
-     request.slice.date = flightday;
-     request.passengers.adultCount = 1;
-     request.passengers.infantInLapCount = 0;
-     request.passengers.infantInSeatCount = 0;
-     request.passengers.childCount = 0;
-     request.passengers.seniorCount = 0;
-     request.solutions = 10;
-     request.refundable = false;
-     return JSON.stringify(request);
+     var myjson = {}; 
+     myjson.request = {};
+     myjson.request.slice = {};
+     myjson.request.passengers = {};
+     myjson.request.slice.origin = ognapt;
+     myjson.request.slice.destination = dstapt;
+     myjson.request.slice.date = flightday;
+     myjson.request.passengers.adultCount = 1;
+     myjson.request.passengers.infantInLapCount = 0;
+     myjson.request.passengers.infantInSeatCount = 0;
+     myjson.request.passengers.childCount = 0;
+     myjson.request.passengers.seniorCount = 0;
+     myjson.request.solutions = 10;
+     myjson.request.refundable = false;
+     return JSON.stringify(myjson);
     }
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
