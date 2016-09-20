@@ -26,7 +26,7 @@
  <div id="supercool"></div>
  
   <script>
-/*    document.getElementById('compare-flights').addEventListener('click',function(){
+    document.getElementById('compare-flights').addEventListener('click',function(){
          searchandcompare();
     });
     
@@ -123,7 +123,7 @@ function searchandcompare(){
       url = url + stla + stln + enla + enln;
       console.log(url);
       
-     */ var url = "https://api.uber.com/v1/estimates/price?start_latitude=40.7713024&start_longitude=-73.9632393&end_latitude=40.6413111&end_longitude=-73.7781390999999";
+     var url = "https://api.uber.com/v1/estimates/price?start_latitude=40.7713024&start_longitude=-73.9632393&end_latitude=40.6413111&end_longitude=-73.7781390999999";
       var response;
       var uberXavg = 0.0;
       
@@ -147,8 +147,8 @@ function searchandcompare(){
        }
        xub.setRequestHeader("Authorization", "Token K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F");
        xub.send();
-       console.log(uberXavg);
-     //}
+       return(uberXavg);
+     }
     //'var xhr = new XMLHttpRequest();
     //'var url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyBDPcpkXlwpVY7G4yr0v_sshszmUKmASP4";
     
