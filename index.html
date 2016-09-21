@@ -80,6 +80,7 @@ function searchandcompare(){
    var geocoder = new google.maps.Geocoder();
    geocoder.geocode( { 'address': origin}, function(results, status) {
    if (status == 'OK') {
+    if (results.length == 1) {
         var originlat = results[0].geometry.location.lat();
         var originlng = results[0].geometry.location.lng();
         var j;
@@ -91,9 +92,10 @@ function searchandcompare(){
         }
         document.getElementById('ogapts').innerHTML = okwecheck + oaptstring;
         //OK now that we have the origin airports, we need to do the same thing for the destination airports.  
-        //Need to nest b/c it's asynchronous
+        //Need to nest the function inside the last one b/c it's asynchronous
         geocoder.geocode( { 'address': destination}, function(results2, status2) {
         if (status2 == 'OK') {
+         if (results2.length == 1) { 
              var destinationlat = results2[0].geometry.location.lat();
              var destinationlng = results2[0].geometry.location.lng();
              var x;
@@ -104,7 +106,7 @@ function searchandcompare(){
                 console.log(destinationairports[x].uberest);
              }
              document.getElementById('endapts').innerHTML = okwecheck + destaptstring;   
-                //Now we do the flight searches and add in the uber costs that we found before to the array of objects
+                //Now we do the flight searches and add in the uber costs that we found before to the array of flight results
                 for (var y = 0; y < originairports.length; y++){
                    for (var z = 0; z < destinationairports.length; z++){
                        flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
@@ -164,11 +166,18 @@ function searchandcompare(){
                rolluparray.sort(function(a,b){return a.totalcost - b.totalcost});
                console.log(JSON.stringify(rolluparray));
         } else {
+            alert('We found multiple results for your destination address. Try being more specific!')
+        }
+        
+        } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
         //end of the second (destination) geocoder 
         });     
   } else {
+    alert('We found multiple results for your origin address. Try being more specific!')
+  }
+   } else {
        alert('Origin search was not successful for the following reason: ' + status);
     }
    //end of the first (origin) geocoder
