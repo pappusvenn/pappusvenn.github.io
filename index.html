@@ -31,11 +31,7 @@
   <script>
   
     document.getElementById('compare-flights').addEventListener('click',function(){
-         var carryons = Number(document.getElementById('carryonbox').value);
-         var checked = Number(document.getElementById('checkedbox').value);
-         var total = carryons + checked;
-         document.getElementById('supercool').innerHTML = total.toString();
-         //searchandcompare();
+         searchandcompare();
     });
     
 function loadjson() {
@@ -56,6 +52,8 @@ function searchandcompare(){
    var origin = document.getElementById('originadd').value;
    var destination = document.getElementById('destadd').value;
    var date = document.getElementById('datepicker-1').value;
+   var carryons = Number(document.getElementById('carryonbox').value);
+   var checked = Number(document.getElementById('checkedbox').value);
    var originairports = [];
    var destinationairports = [];
    var okwecheck = "  Checking these airports: ";
