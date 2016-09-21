@@ -25,11 +25,17 @@
  <p>Carry-on bag?<select id="carryonbox"><option value="0">No</option> <option value="1">Yes</option></select>     
  Checked bags: <select id="checkedbox"><option value="0">0</option> <option value="1">1</option> <option value="2">2</option></select></p>
  <p><input type="button" id="compare-flights" value="Search"></p>
+ <div id="supercool"></div>
 
  
   <script>
+  
     document.getElementById('compare-flights').addEventListener('click',function(){
-         searchandcompare();
+         var carryons = Number(document.getElementById('carryonbox').value);
+         var checked = Number(document.getElementById('checkedbox').value);
+         var total = carryons + checked;
+         document.getElementById('supercool').innerHTML = total.toString();
+         //searchandcompare();
     });
     
 function loadjson() {
