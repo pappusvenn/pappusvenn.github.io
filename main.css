@@ -29,8 +29,6 @@ td {
     padding: 5px;
 }
 
-tr:hover {background-color: AliceBlue;}
-
 tr:nth-child(even) {background-color: #f2f2f2}
 
 th {
