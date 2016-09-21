@@ -60,7 +60,7 @@ function searchandcompare(){
    var checked = Number(document.getElementById('checkedbox').value);
    var originairports = [];
    var destinationairports = [];
-   var okwecheck = "  Checking these airports: ";
+   var okwecheck = "  Checked these airports: ";
    var oaptstring = "";
    var destaptstring = "";
    var flightoptions = {};
@@ -116,7 +116,8 @@ function searchandcompare(){
                                flightoptions.routes[g].opt[m].checkedfee = airlines[h].firstcheck + airlines[h].secondcheck;
                              }
                           }   
-                      } 
+                      }
+                    flightoptions.routes[g].opt[m].totalTripCost = flightoptions.routes[g].deptuber + flightoptions.routes[g].arrvuber + flightoptions.routes[g].opt[m].price + flightoptions.routes[g].opt[m].carryonfee + flightoptions.routes[g].opt[m].checkedfee;  
                   }
                 }
                console.log(JSON.stringify(flightoptions));
