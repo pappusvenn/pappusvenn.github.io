@@ -30,6 +30,8 @@
  
   <script>
   
+  var airlinestring = '[{ "code": "AS", "name": "Alaska Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }, { "code": "G4", "name": "Allegiant Air", "carryon": 15, "firstcheck": 20, "secondcheck": 20 }, { "code": "AA", "name": "American Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "DL", "name": "Delta Air Lines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "F9", "name": "Frontier Airlines", "carryon": 35, "firstcheck": 30, "secondcheck": 40 }, { "code": "HA", "name": "Hawaiian Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "B6", "name": "JetBlue Airways", "carryon": 0, "firstcheck": 20, "secondcheck": 35 }, { "code": "WN", "name": "Southwest Airlines", "carryon": 0, "firstcheck": 0, "secondcheck": 0 }, { "code": "NK", "name": "Spirit Airlines", "carryon": 26, "firstcheck": 21, "secondcheck": 31 }, { "code": "SY", "name": "Sun Country Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "UA", "name": "United Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "VX", "name": "Virgin America", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }]'
+  
     document.getElementById('compare-flights').addEventListener('click',function(){
          searchandcompare();
     });
@@ -49,6 +51,8 @@ function loadjson() {
 
 function searchandcompare(){
    var airports = JSON.parse(loadjson());//works because we made loadjson a synchronous request. so this must happen first.
+   var airlinestring = '[{ "code": "AS", "name": "Alaska Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }, { "code": "G4", "name": "Allegiant Air", "carryon": 15, "firstcheck": 20, "secondcheck": 20 }, { "code": "AA", "name": "American Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "DL", "name": "Delta Air Lines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "F9", "name": "Frontier Airlines", "carryon": 35, "firstcheck": 30, "secondcheck": 40 }, { "code": "HA", "name": "Hawaiian Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "B6", "name": "JetBlue Airways", "carryon": 0, "firstcheck": 20, "secondcheck": 35 }, { "code": "WN", "name": "Southwest Airlines", "carryon": 0, "firstcheck": 0, "secondcheck": 0 }, { "code": "NK", "name": "Spirit Airlines", "carryon": 26, "firstcheck": 21, "secondcheck": 31 }, { "code": "SY", "name": "Sun Country Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "UA", "name": "United Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "VX", "name": "Virgin America", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }]'
+   var airlines = JSON.parse(airlinestring); //instead of doing the loadjson() for the airline info, we do it here to speed things up
    var origin = document.getElementById('originadd').value;
    var destination = document.getElementById('destadd').value;
    var date = document.getElementById('datepicker-1').value;
@@ -89,7 +93,7 @@ function searchandcompare(){
                 console.log(destinationairports[x].uberest);
              }
              document.getElementById('endapts').innerHTML = okwecheck + destaptstring;   
-                //Now we do the flight searches
+                //Now we do the flight searches and add in the uber costs that we found before to the array of objects
                 for (var y = 0; y < originairports.length; y++){
                    for (var z = 0; z < destinationairports.length; z++){
                        flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
@@ -98,7 +102,24 @@ function searchandcompare(){
                        flightoptions.routes[(currentsize-1)].arrvuber = destinationairports[z].uberest; 
                    }
                 }
-                console.log(JSON.stringify(flightoptions));
+                for (var g = 0; g < flightoptions.routes.length; g++){
+                  for (var m = 0; m< flightoptions.routes[g].opt.length; m++){
+                       var tmp = flightoptions.routes[g].opt[m].flights[0].split(" ");
+                       for (var h = 0; h < airlines.length; h++){
+                          if (airlines[h].code == tmp[0]) {
+                             flightoptions.routes[g].opt[m].carryonfee = airlines[h].carryon * carryons;
+                             if (checked == 0){
+                               flightoptions.routes[g].opt[m].checkedfee = 0;
+                             } else if (checked == 1){
+                               flightoptions.routes[g].opt[m].checkedfee = airlines[h].firstcheck;
+                             } else if (checked == 2){
+                               flightoptions.routes[g].opt[m].checkedfee = airlines[h].firstcheck + airlines[h].secondcheck;
+                             }
+                          }   
+                      } 
+                  }
+                }
+               console.log(JSON.stringify(flightoptions));
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
