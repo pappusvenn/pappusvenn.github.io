@@ -10,3 +10,7 @@
     display: block;
     padding: 5px;
 }
+
+select {
+    padding: 5px;
+}
