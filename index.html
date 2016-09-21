@@ -35,7 +35,7 @@
  var newcol = "</td><td>";
  var newrow = "</td></tr><tr><td>";
  for (var i=0; i<obj.length; i++){
-    out+= obj[i].totalcost.toFixed(2) + newcol + obj[i].departtime + newcol + obj[i].arrvtime + newcol + obj[i].leavingairport + "-" + obj[i].arrivingairport + newcol + obj[i].flights + newcol + obj[i].flightprice.toFixed(2) + newcol + (obj[i].carryonfee + obj[i].checkedfee).toFixed(2) + newcol + obj[i].leavinguber.toFixed(2) + newcol + obj[i].arrivinguber.toFixed(2) + newrow;  
+    out+= "$" + obj[i].totalcost.toFixed(2) + newcol + obj[i].departtime + newcol + obj[i].arrvtime + newcol + obj[i].leavingairport + "-" + obj[i].arrivingairport + newcol + obj[i].flights + newcol + "$" + obj[i].flightprice.toFixed(2) + newcol + "$" + (obj[i].carryonfee + obj[i].checkedfee).toFixed(2) + newcol + "$" + obj[i].leavinguber.toFixed(2) + newcol + "$" + obj[i].arrivinguber.toFixed(2) + newrow;  
  }
  out += "</table>"
  document.getElementById('supercool').innerHTML = out;
