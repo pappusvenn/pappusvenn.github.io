@@ -124,11 +124,12 @@ function searchandcompare(){
                 var rolluparray = [];
                 var rollupindex = 0;
                   for (var d = 0; d< flightoptions.routes.length; d++){
-                      rolluparray[rollupindex].leavingairport = flightoptions.routes[d].dept;
-                      rolluparray[rollupindex].arrivingairport = flightoptions.routes[d].arrv;
-                      rolluparray[rollupindex].leavinguber = flightoptions.routes[d].deptuber;
-                      rolluparray[rollupindex].arrivinguber = flightoptions.routes[d].arrvuber;
                       for (var e = 0; e<flightoptions.routes[d].opt.length; e++){
+                          rolluparray[rollupindex] = {};
+                          rolluparray[rollupindex].leavingairport = flightoptions.routes[d].dept;
+                          rolluparray[rollupindex].arrivingairport = flightoptions.routes[d].arrv;
+                          rolluparray[rollupindex].leavinguber = flightoptions.routes[d].deptuber;
+                          rolluparray[rollupindex].arrivinguber = flightoptions.routes[d].arrvuber;
                           rolluparray[rollupindex].totalcost = flightoptions.routes[d].opt[e].totalTripCost;
                           rolluparray[rollupindex].flightprice = flightoptions.routes[d].opt[e].price;
                           rolluparray[rollupindex].duration = flightoptions.routes[d].opt[e].duration;
