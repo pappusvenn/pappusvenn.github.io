@@ -32,7 +32,7 @@
   
   var airlinestring = '[{ "code": "AS", "name": "Alaska Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }, { "code": "G4", "name": "Allegiant Air", "carryon": 15, "firstcheck": 20, "secondcheck": 20 }, { "code": "AA", "name": "American Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "DL", "name": "Delta Air Lines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "F9", "name": "Frontier Airlines", "carryon": 35, "firstcheck": 30, "secondcheck": 40 }, { "code": "HA", "name": "Hawaiian Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "B6", "name": "JetBlue Airways", "carryon": 0, "firstcheck": 20, "secondcheck": 35 }, { "code": "WN", "name": "Southwest Airlines", "carryon": 0, "firstcheck": 0, "secondcheck": 0 }, { "code": "NK", "name": "Spirit Airlines", "carryon": 26, "firstcheck": 21, "secondcheck": 31 }, { "code": "SY", "name": "Sun Country Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "UA", "name": "United Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "VX", "name": "Virgin America", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }]'
   
-    document.getElementById('compare-flights').addEventListener('click',function(){
+ document.getElementById('compare-flights').addEventListener('click',function(){
          searchandcompare();
     });
     
@@ -108,6 +108,7 @@ function searchandcompare(){
                        for (var h = 0; h < airlines.length; h++){
                           if (airlines[h].code == tmp[0]) {
                              flightoptions.routes[g].opt[m].carryonfee = airlines[h].carryon * carryons;
+                             flightoptions.routes[g].opt[m].airlinename = airlines[h].name;
                              if (checked == 0){
                                flightoptions.routes[g].opt[m].checkedfee = 0;
                              } else if (checked == 1){
@@ -134,6 +135,7 @@ function searchandcompare(){
                           rolluparray[rollupindex].flightprice = flightoptions.routes[d].opt[e].price;
                           rolluparray[rollupindex].duration = flightoptions.routes[d].opt[e].duration;
                           rolluparray[rollupindex].layovers = flightoptions.routes[d].opt[e].layovers;
+                          rolluparray[rollupindex].airlinename = flightoptions.routes[d].opt[e].airlinename;
                           rolluparray[rollupindex].flights = flightoptions.routes[d].opt[e].flights.toString();
                           var departsplit = flightoptions.routes[d].opt[e].depart.split("T");
                           rolluparray[rollupindex].departdate = departsplit[0];
@@ -146,8 +148,10 @@ function searchandcompare(){
                           rolluparray[rollupindex].carryonfee = flightoptions.routes[d].opt[e].carryonfee;
                           rolluparray[rollupindex].checkedfee = flightoptions.routes[d].opt[e].checkedfee;
                           rollupindex = rollupindex + 1;
-                    }
+                     }
                   }
+               console.log(JSON.stringify(rolluparray));
+               rolluparray.sort(function(a,b){return a.totalcost - b.totalcost});
                console.log(JSON.stringify(rolluparray));
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
@@ -211,6 +215,7 @@ function searchandcompare(){
                      if (response.prices[k].display_name == "uberX") {
                         uberXavgpreSurge = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2
                         uberXavgpostSurge = uberXavgpreSurge / response.prices[k].surge_multiplier;
+                        console.log(response.prices[k]).surge_multiplier;
                      }
                   } 
                    
