@@ -5,3 +5,9 @@
 #destadd {
     width: 250px;
 }
+
+.bagbox {
+    width: 25px;
+    padding: 5px;
+    color: black;
+}
