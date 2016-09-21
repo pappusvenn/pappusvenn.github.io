@@ -25,11 +25,11 @@ table {
 
 td {
     height: 20px
-    text-align: left;
+    text-align: center;
     padding: 5px;
 }
 
-tr:hover {background-color: blue;}
+tr:hover {background-color: AliceBlue;}
 
 tr:nth-child(even) {background-color: #f2f2f2}
 
