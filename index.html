@@ -120,7 +120,34 @@ function searchandcompare(){
                     flightoptions.routes[g].opt[m].totalTripCost = flightoptions.routes[g].deptuber + flightoptions.routes[g].arrvuber + flightoptions.routes[g].opt[m].price + flightoptions.routes[g].opt[m].carryonfee + flightoptions.routes[g].opt[m].checkedfee;  
                   }
                 }
-               console.log(JSON.stringify(flightoptions));
+                //Now let's roll up the data into one array
+                var rolluparray = [];
+                var rollupindex = 0;
+                  for (var d = 0; d< flightoptions.routes.length; d++){
+                      rolluparray[rollupindex].leavingairport = flightoptions.routes[d].dept;
+                      rolluparray[rollupindex].arrivingairport = flightoptions.routes[d].arrv;
+                      rolluparray[rollupindex].leavinguber = flightoptions.routes[d].deptuber;
+                      rolluparray[rollupindex].arrivinguber = flightoptions.routes[d].arrvuber;
+                      for (var e = 0; e<flightoptions.routes[d].opt.length; e++){
+                          rolluparray[rollupindex].totalcost = flightoptions.routes[d].opt[e].totalTripCost;
+                          rolluparray[rollupindex].flightprice = flightoptions.routes[d].opt[e].price;
+                          rolluparray[rollupindex].duration = flightoptions.routes[d].opt[e].duration;
+                          rolluparray[rollupindex].layovers = flightoptions.routes[d].opt[e].layovers;
+                          rolluparray[rollupindex].flights = flightoptions.routes[d].opt[e].flights.toString();
+                          var departsplit = flightoptions.routes[d].opt[e].depart.split("T");
+                          rolluparray[rollupindex].departdate = departsplit[0];
+                          var departsplit2 = departsplit[1].split("-");
+                          rolluparray[rollupindex].departtime = departsplit2[0];
+                          var arrvsplit = flightoptions.routes[d].opt[e].arrive.split("T");
+                          rolluparray[rollupindex].arrvdate = arrvsplit[0];
+                          var arrvsplit2 = arrvsplit[1].split("-");
+                          rolluparray[rollupindex].arrvtime = arrvsplit2[0]; 
+                          rolluparray[rollupindex].carryonfee = flightoptions.routes[d].opt[e].carryonfee;
+                          rolluparray[rollupindex].carryonfee = flightoptions.routes[d].opt[e].checkedfee;
+                          rollupindex = rollupindex + 1;
+                    }
+                  }
+               console.log(JSON.stringify(rolluparray));
         } else {
                    alert('Destination search was not successful for the following reason: ' + status2);
                }
