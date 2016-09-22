@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="main.css"/>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2hkwSclaKkxutpMtFGtsJfEXajcoSmls"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2hkwSclaKkxutpMtFGtsJfEXajcoSmls&callback=initMap"></script>
   <!-- Javascript to establish the datepicker -->
   <script>
      $(function() {
@@ -36,6 +36,7 @@
   <script>
 var airlinestring = '[{ "code": "AS", "name": "Alaska Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }, { "code": "G4", "name": "Allegiant Air", "carryon": 15, "firstcheck": 20, "secondcheck": 20 }, { "code": "AA", "name": "American Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "DL", "name": "Delta Air Lines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "F9", "name": "Frontier Airlines", "carryon": 35, "firstcheck": 30, "secondcheck": 40 }, { "code": "HA", "name": "Hawaiian Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "B6", "name": "JetBlue Airways", "carryon": 0, "firstcheck": 20, "secondcheck": 35 }, { "code": "WN", "name": "Southwest Airlines", "carryon": 0, "firstcheck": 0, "secondcheck": 0 }, { "code": "NK", "name": "Spirit Airlines", "carryon": 26, "firstcheck": 21, "secondcheck": 31 }, { "code": "SY", "name": "Sun Country Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "UA", "name": "United Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "VX", "name": "Virgin America", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }]';
 
+function initMap(){
 var ayports = ["ABQ","ANC","ATL","AUS","BDL","BNA","BUF","CLE","CLT","CMH","CVG","DEN","HNL","IND","JAX","LAS","MCI","MKE","MSP","MSY","OGG","OMA","PBI","PHL","PHX","RDU","RSW","SAN","SAT","SEA","SJU","SLC","SMF"];
 var names = []
 var lats = [];
@@ -51,7 +52,7 @@ var geocoder = new google.maps.Geocoder();
    }
    });
    }
-   
+}
 
   
 /* document.getElementById('compare-flights').addEventListener('click',function(){
