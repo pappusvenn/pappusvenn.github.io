@@ -43,7 +43,7 @@ var lats = [];
 var longs = [];
 var geocoder = new google.maps.Geocoder();
    for (var i = 0; i<ayports.length; i++){
-     geocoder.geocode( { 'address': ayports}, function(results, status) {
+     geocoder.geocode( { 'address': ayports[i]}, function(results, status) {
        if (status == 'OK') {
        names[i] = results[0].address_components.long_name;
        lats[i] = results[0].geometry.location.lat();
