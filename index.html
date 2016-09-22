@@ -45,10 +45,10 @@ var geocoder = new google.maps.Geocoder();
    for (var i = 0; i<ayports.length; i++){
      geocoder.geocode( { 'address': ayports[i]}, function(results, status) {
        if (status == 'OK') {
-       names[i] = results[0].address_components.long_name;
+       names[i] = results[0].address_components[0].long_name;
        lats[i] = results[0].geometry.location.lat();
        longs[i] = results[0].geometry.location.lng();
-       console.log(ayports[i] + "," + names[i] + "," + lats[i] + "," + longs[i]);
+       console.log(names[i] + "," + lats[i] + "," + longs[i]);
    }
    });
    }
