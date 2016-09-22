@@ -21,7 +21,8 @@
  <h1>Dave's Superior Flight Search</h1>
  <p><i>Many metropolitan areas in the US have multiple airports. While several flight search engines take this into account, they don't factor in the disparate costs of traveling to/from different airports. <br> 
  Also, some flights that appear cheap on a typical travel website can be deceiving, because certain airlines charge exorbitant fees for carryon/checked bags. <br> 
- This flight search compares the "total cost" of your flight options, factoring in travel cost to/from the airports (right now we assume you use uberX) and baggage fees. <br> Just put in your info below and let us do the rest!</i></p>
+ This flight search compares the "total cost" of your flight options, factoring in travel cost to/from the airports (right now we assume you use uberX) and baggage fees. <br> 
+ The metropolitan areas we currently serve are: NYC, SF Bay Area, Dallas-Fort Worth, Los Angeles, Chicago, Miami, Pittsburgh, and Detroit.</i></p>
  <p>Origin Address (Street, City, State): <input type="text" id="originadd" placeholder='e.g. 775 park ave new york ny'><span id=ogapts></span></p>
  <p>Destination Address (Street, City, State): <input type="text" id="destadd" placeholder= 'e.g. 1084 sumatra st hayward ca'><span id=endapts></span></p>
  <p>Choose Date: <input type="text" id="datepicker-1"></p>
@@ -156,11 +157,11 @@ function searchandcompare(){
                      }
                   }
               var obj = rolluparray.sort(function(a,b){return a.totalcost - b.totalcost});
-              var out = "<table><tr><th>Total Cost</th><th>Depart</th><th>Arrive</th><th>Airports</th><th>Flight(s)</th><th>Flight Price</th><th>Bag Fees</th><th>Uber to Airport</th><th>Uber from Airport</th></tr><tr><td>";
+              var out = "<table><tr><th>Total Cost</th><th>Depart</th><th>Arrive</th><th>Airports</th><th>Carrier</th><th>Flight(s)</th><th>Flight Price</th><th>Bag Fees</th><th>Uber to Airport</th><th>Uber from Airport</th></tr><tr><td>";
               var newcol = "</td><td>";
               var newrow = "</td></tr><tr><td>";
               for (var i=0; i<obj.length; i++){
-              out+= "$" + obj[i].totalcost.toFixed(2) + newcol + obj[i].departtime + newcol + obj[i].arrvtime + newcol + obj[i].leavingairport + "-" + obj[i].arrivingairport + newcol + obj[i].flights + newcol + "$" + obj[i].flightprice.toFixed(2) + newcol + "$" + (obj[i].carryonfee + obj[i].checkedfee).toFixed(2) + newcol + "$" + obj[i].leavinguber.toFixed(2) + newcol + "$" + obj[i].arrivinguber.toFixed(2) + newrow;  
+              out+= "$" + obj[i].totalcost.toFixed(2) + newcol + obj[i].departtime + newcol + obj[i].arrvtime + newcol + obj[i].leavingairport + "-" + obj[i].arrivingairport + newcol + obj[i].airlinename + newcol + obj[i].flights + newcol + "$" + obj[i].flightprice.toFixed(2) + newcol + "$" + (obj[i].carryonfee + obj[i].checkedfee).toFixed(2) + newcol + "$" + obj[i].leavinguber.toFixed(2) + newcol + "$" + obj[i].arrivinguber.toFixed(2) + newrow;  
               }
               out += "</table>"
               document.getElementById('supercool').innerHTML = out;
