@@ -35,8 +35,23 @@
  
   <script>
 var airlinestring = '[{ "code": "AS", "name": "Alaska Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }, { "code": "G4", "name": "Allegiant Air", "carryon": 15, "firstcheck": 20, "secondcheck": 20 }, { "code": "AA", "name": "American Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "DL", "name": "Delta Air Lines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "F9", "name": "Frontier Airlines", "carryon": 35, "firstcheck": 30, "secondcheck": 40 }, { "code": "HA", "name": "Hawaiian Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "B6", "name": "JetBlue Airways", "carryon": 0, "firstcheck": 20, "secondcheck": 35 }, { "code": "WN", "name": "Southwest Airlines", "carryon": 0, "firstcheck": 0, "secondcheck": 0 }, { "code": "NK", "name": "Spirit Airlines", "carryon": 26, "firstcheck": 21, "secondcheck": 31 }, { "code": "SY", "name": "Sun Country Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "UA", "name": "United Airlines", "carryon": 0, "firstcheck": 25, "secondcheck": 35 }, { "code": "VX", "name": "Virgin America", "carryon": 0, "firstcheck": 25, "secondcheck": 25 }]';
+
+var ayports = ["ABQ","ANC","ATL","AUS","BDL","BNA","BUF","CLE","CLT","CMH","CVG","DEN","HNL","IND","JAX","LAS","MCI","MKE","MSP","MSY","OGG","OMA","PBI","PHL","PHX","RDU","RSW","SAN","SAT","SEA","SJU","SLC","SMF"];
+var names = []
+var lats = [];
+var longs = [];
+var geocoder = new google.maps.Geocoder();
+   for (var i = 0; i<ayports.length; i++){
+     geocoder.geocode( { 'address': ayports}, function(results, status) {
+       names[i] = results[0].address_components.long_name;
+       lats[i] = results[0].geometry.location.lat();
+       longs[i] = results[0].geometry.location.lng();
+       console.log(ayports[i] + "," + names[i] + "," + lats[i] + "," + longs[i]);
+   });
+   
+
   
- document.getElementById('compare-flights').addEventListener('click',function(){
+/* document.getElementById('compare-flights').addEventListener('click',function(){
          document.getElementById('supercool').innerHTML = "Searching now. This will take about 30-40 seconds, so just chill for a bit..."
          searchandcompare();
     });
@@ -297,7 +312,7 @@ function searchandcompare(){
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(mystr);
     return routesum; 
-  }
+  }*/
       
 </script>
   
