@@ -221,8 +221,8 @@ function searchandcompare(){
       var enln = '&end_longitude=' + endlng.toString();
       url = url + stla + stln + enla + enln;
       var response;
-      var uberXavgpreSurge = 0.0;
-      var uberXavgpostSurge = 0.0;
+      var preSurge = 0.0;
+      var postSurge = 0.0;
       
       var xub = new XMLHttpRequest();
       xub.open('GET', url, false);
@@ -230,10 +230,16 @@ function searchandcompare(){
           if (xub.readyState == 4 && xub.status == "200") {
                    response = JSON.parse(xub.responseText);
                    var k;
+                   var cheapestuber = {};          
+                   var cheapestuber.cost = (response.prices[0].low_estimate + response.prices[0].high_estimate)/2/response.prices[0].surge_multiplier;
+                   var cheapestuber.kind = response.prices[0].display_name; 
                    for (k = 0; k < response.prices.length; k++){
-                     if (response.prices[k].display_name == "uberX") {
-                        uberXavgpreSurge = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2
-                        uberXavgpostSurge = uberXavgpreSurge / response.prices[k].surge_multiplier;
+                        preSurge = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2
+                        postSurge = preSurge / response.prices[k].surge_multiplier;
+                        if (postSurge < cheapestuber.cost) {
+                           cheapestuber.cost = postSurge;
+                           cheapestuber.kind = response.prices[k].display_name;
+                        }
                         console.log(response.prices[k].surge_multiplier);
                      }
                   } 
