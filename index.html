@@ -80,7 +80,9 @@ function searchandcompare(){
         originairports = findairports(originlat,originlng,airports);
         for (j=0; j<originairports.length; j++) {
            oaptstring += originairports[j].code + ", ";
-           originairports[j].uberest = ubercost(originlat,originlng,originairports[j].lat,originairports[j].lng);
+           var ubersearch = ubercost(originlat,originlng,originairports[j].lat,originairports[j].lng); 
+           originairports[j].uberest = ubersearch.cost;
+           originairports[j].ubertype = ubersearch.kind;
            console.log(originairports[j].uberest);
         }
         document.getElementById('ogapts').innerHTML = okwecheck + oaptstring;
@@ -95,7 +97,9 @@ function searchandcompare(){
              destinationairports = findairports(destinationlat,destinationlng,airports);
              for (x=0; x<destinationairports.length; x++) {
                 destaptstring += destinationairports[x].code + ", ";
-                destinationairports[x].uberest = ubercost(destinationlat,destinationlng,destinationairports[x].lat,destinationairports[x].lng);
+                var ubersearchy = ubercost(destinationlat,destinationlng,destinationairports[x].lat,destinationairports[x].lng); 
+                destinationairports[x].uberest = ubersearchy.cost;
+                destinationairports[x].ubertype = ubersearchy.kind;
                 console.log(destinationairports[x].uberest);
              }
              document.getElementById('endapts').innerHTML = okwecheck + destaptstring;   
@@ -104,8 +108,10 @@ function searchandcompare(){
                    for (var z = 0; z < destinationairports.length; z++){
                        flightoptions.routes.push(flightsearch(originairports[y].code, destinationairports[z].code, date));
                        currentsize = flightoptions.routes.length;
-                       flightoptions.routes[(currentsize-1)].deptuber = originairports[y].uberest;
-                       flightoptions.routes[(currentsize-1)].arrvuber = destinationairports[z].uberest; 
+                       flightoptions.routes[(currentsize-1)].deptubercost = originairports[y].uberest;
+                       flightoptions.routes[(currentsize-1)].arrvubercost = destinationairports[z].uberest;
+                       flightoptions.routes[(currentsize-1)].deptubertype = originairports[y].ubertype;
+                       flightoptions.routes[(currentsize-1)].arrvubertype = destinationairports[z].ubertype;
                    }
                 }
                 for (var g = 0; g < flightoptions.routes.length; g++){
@@ -124,7 +130,7 @@ function searchandcompare(){
                              }
                           }   
                       }
-                    flightoptions.routes[g].opt[m].totalTripCost = flightoptions.routes[g].deptuber + flightoptions.routes[g].arrvuber + flightoptions.routes[g].opt[m].price + flightoptions.routes[g].opt[m].carryonfee + flightoptions.routes[g].opt[m].checkedfee;  
+                    flightoptions.routes[g].opt[m].totalTripCost = flightoptions.routes[g].deptubercost + flightoptions.routes[g].arrvubercost + flightoptions.routes[g].opt[m].price + flightoptions.routes[g].opt[m].carryonfee + flightoptions.routes[g].opt[m].checkedfee;  
                   }
                 }
                 //Now let's roll up the data into one array
@@ -135,8 +141,10 @@ function searchandcompare(){
                           rolluparray[rollupindex] = {};
                           rolluparray[rollupindex].leavingairport = flightoptions.routes[d].dept;
                           rolluparray[rollupindex].arrivingairport = flightoptions.routes[d].arrv;
-                          rolluparray[rollupindex].leavinguber = flightoptions.routes[d].deptuber;
-                          rolluparray[rollupindex].arrivinguber = flightoptions.routes[d].arrvuber;
+                          rolluparray[rollupindex].leavinguber = flightoptions.routes[d].deptubercost;
+                          rolluparray[rollupindex].arrivinguber = flightoptions.routes[d].arrvubercost;
+                          rolluparray[rollupindex].leavingubertype = flightoptions.routes[d].deptubertype;
+                          rolluparray[rollupindex].arrivingubertype = flightoptions.routes[d].arrvubertype;
                           rolluparray[rollupindex].totalcost = flightoptions.routes[d].opt[e].totalTripCost;
                           rolluparray[rollupindex].flightprice = flightoptions.routes[d].opt[e].price;
                           rolluparray[rollupindex].duration = flightoptions.routes[d].opt[e].duration;
@@ -161,7 +169,7 @@ function searchandcompare(){
               var newcol = "</td><td>";
               var newrow = "</td></tr><tr><td>";
               for (var i=0; i<obj.length; i++){
-              out+= "$" + obj[i].totalcost.toFixed(2) + newcol + obj[i].departtime + newcol + obj[i].arrvtime + newcol + obj[i].leavingairport + "-" + obj[i].arrivingairport + newcol + obj[i].airlinename + newcol + obj[i].flights + newcol + "$" + obj[i].flightprice.toFixed(2) + newcol + "$" + (obj[i].carryonfee + obj[i].checkedfee).toFixed(2) + newcol + "$" + obj[i].leavinguber.toFixed(2) + newcol + "$" + obj[i].arrivinguber.toFixed(2) + newrow;  
+              out+= "$" + obj[i].totalcost.toFixed(2) + newcol + obj[i].departtime + newcol + obj[i].arrvtime + newcol + obj[i].leavingairport + "-" + obj[i].arrivingairport + newcol + obj[i].airlinename + newcol + obj[i].flights + newcol + "$" + obj[i].flightprice.toFixed(2) + newcol + "$" + (obj[i].carryonfee + obj[i].checkedfee).toFixed(2) + newcol + "$" + obj[i].leavinguber.toFixed(2) + obj[i].leavingubertype + newcol + "$" + obj[i].arrivinguber.toFixed(2) + obj[i].arrivingubertype + newrow;  
               }
               out += "</table>"
               document.getElementById('supercool').innerHTML = out;
@@ -223,14 +231,14 @@ function searchandcompare(){
       var response;
       var preSurge = 0.0;
       var postSurge = 0.0;
+      var cheapestuber = {};
       
       var xub = new XMLHttpRequest();
       xub.open('GET', url, false);
       xub.onreadystatechange = function () {
           if (xub.readyState == 4 && xub.status == "200") {
                    response = JSON.parse(xub.responseText);
-                   var k;
-                   var cheapestuber = {};          
+                   var k;          
                    var cheapestuber.cost = (response.prices[0].low_estimate + response.prices[0].high_estimate)/2/response.prices[0].surge_multiplier;
                    var cheapestuber.kind = response.prices[0].display_name; 
                    for (k = 0; k < response.prices.length; k++){
@@ -240,7 +248,6 @@ function searchandcompare(){
                            cheapestuber.cost = postSurge;
                            cheapestuber.kind = response.prices[k].display_name;
                         }
-                        console.log(response.prices[k].surge_multiplier);
                      }
                   } 
                    
@@ -250,7 +257,7 @@ function searchandcompare(){
        }
        xub.setRequestHeader("Authorization", "Token K8rh0YGXPtdHEFJepmOT-DsWT6_CcplY69BOhu7F");
        xub.send();
-       return(uberXavgpostSurge);
+       return(cheapestuber);
      }
      
     function flightsearch(ognapt,dstapt,flightday){
