@@ -239,8 +239,8 @@ function searchandcompare(){
           if (xub.readyState == 4 && xub.status == "200") {
                    response = JSON.parse(xub.responseText);
                    var k;          
-                   var cheapestuber.cost = (response.prices[0].low_estimate + response.prices[0].high_estimate)/2/response.prices[0].surge_multiplier;
-                   var cheapestuber.kind = response.prices[0].display_name; 
+                   cheapestuber.cost = (response.prices[0].low_estimate + response.prices[0].high_estimate)/2/response.prices[0].surge_multiplier;
+                   cheapestuber.kind = response.prices[0].display_name; 
                    for (k = 0; k < response.prices.length; k++){
                         preSurge = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2
                         postSurge = preSurge / response.prices[k].surge_multiplier;
