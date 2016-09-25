@@ -242,13 +242,15 @@ function searchandcompare(){
                    cheapestuber.cost = (response.prices[0].low_estimate + response.prices[0].high_estimate)/2/response.prices[0].surge_multiplier;
                    cheapestuber.kind = response.prices[0].display_name; 
                    for (k = 0; k < response.prices.length; k++){
+                     if (response.prices[k].low_estimate > 0) { 
                         preSurge = (response.prices[k].low_estimate + response.prices[k].high_estimate)/2
                         postSurge = preSurge / response.prices[k].surge_multiplier;
                         if (postSurge < cheapestuber.cost) {
                            cheapestuber.cost = postSurge;
                            cheapestuber.kind = response.prices[k].display_name;
                         }
-                     }                  
+                     }
+                   }
           } else {
                    alert("Uber Price Search Failed");
                }
