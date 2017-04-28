@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: new google.maps.LatLng(40.7383269,-73.995252514),
+            mapTypeId: 'roadmap'
+        });
+
+        var faricon = {
+            url: 'toofar.png',
+            scaledSize: new google.maps.Size(15, 15)
+            // Just use the default origin and anchor points for the image
+        };
+        var closeicon = {
+            url: 'closeenough.png',
+            scaledSize: new google.maps.Size(15, 15)
+            // Just use the default origin and anchor points for the image
+        };
+
+        var Palantiricon = {
+            url: 'Palantir.png',
+            scaledSize: new google.maps.Size(30, 30)
+            // Just use the default origin and anchor points for the image
+        };
+
+        var palantirMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(40.740048,-74.006868),
+            map: map,
+            icon: Palantiricon
+        });
+
+        var intersections = loadjson();
+
+
+        var infoWindow = new google.maps.InfoWindow();
+        var infoWindowContent = [];
+        for (var k = 0; k < intersections.length; k++) {
+            infoWindowContent[k] = '<p>Walking Time: ' + Math.round(intersections[k].walking) + ' mins</p><p>Transit Time: ' + Math.round(intersections[k].transit) + ' mins</p>';
+        }
+
+
+        for (var i = 0; i < intersections.length; i++) {
+            var lat = intersections[i].lat;
+            var lng = intersections[i].lng;
+            var latLng = new google.maps.LatLng(lat,lng);
+
+            marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                icon: closeicon,
+                opacity: 0.5
+            });
+            if (intersections[i].toofar == true) {
+                marker.setIcon(faricon);
+            }
+
+            // Add info window to marker
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infoWindow.setContent(infoWindowContent[i]);
+                    console.log(infoWindowContent[i]);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+
+        }
+    }
+
+    function loadjson() {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'intersections.json', false);
+        var intersectionstxt = '';
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                intersectionstxt = xobj.responseText;}
+        };
+        xobj.send(null);
+        var intersections = JSON.parse(intersectionstxt);
+        return intersections;
+    }
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfYkhllZmQonkLBtn5EPlD9D9gQKjN29I&callback=initMap">
+</script>
+</body>
+</html>
